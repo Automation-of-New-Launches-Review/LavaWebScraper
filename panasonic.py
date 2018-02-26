@@ -36,17 +36,17 @@ url_list = []
 r = requests.get(base_url)
 soup = BeautifulSoup(r.text, 'html.parser')
 
-series_url=['productlist/eluga', 'productlist/p-series', 'productlist/t-series']
+series_url=['productlist/eluga', 'productlist/p-series']
 specs=[]
 
 for u in series_url:
     uurl = base_url + u
     r1 = requests.get(uurl)
-    soup1 = BeautifulSoup(r1.text, 'html.parser')    
-    s1 = soup1.find_all('li', attrs={'class':'col-md-4 col-sm-6 text-center'})
+    soup1 = BeautifulSoup(r1.text, 'html.parser')
+    s1 = soup1.find_all('li', attrs={'class':'col-md-4 col-sm-6 product-list-item'})
     for s in s1:
         p = s.find('a')['href']
-        q = s.find('h3').text
+        q = s.find('h2').text
         href.append('https://mobile.panasonic.com' + p)
         model_list.append(str(q))
 
@@ -153,5 +153,5 @@ except:
     print('ERROR: :LENGTH OF LISTS NOT EQUAL.')
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'panasonic-'+str(datetime.date.today())+'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today())+'-panasonic'+'.csv'), index=False, encoding='utf-8')
 ####################################################################################################################################

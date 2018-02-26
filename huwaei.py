@@ -32,15 +32,12 @@ r=requests.get(url)
 soup=BeautifulSoup(r.text,'html.parser')    
 links=soup.find_all('div',attrs={'class':'product_items'})
 
-
-###print(links)
 for s in links:
     tt=s.find_all('a',attrs={'class':'a-common'})
     for v in tt:
         urls1.append(v['href'])
 
 for m in urls1:
-    #print(m)
     r1=requests.get(m)
     
     soup1=BeautifulSoup(r1.text,'html.parser')    
@@ -54,9 +51,6 @@ for z in urls2:
     
     if "specs" in z:
         urls.append("https://consumer.huawei.com"+z)
-##print(urls)
-##print(len(urls))
-
 
 xv=0
 for i in urls:
@@ -64,18 +58,8 @@ for i in urls:
     company.append("HUAWEI")
     extras_links.append(i)
     specs.append("NOT AVAILABLE")
-    
-    #if i=='https://consumer.huawei.com/en/phones/p8-lite/specs':
-        #display_list.append("NA")
-        #print("_________?))")
-    #if i=='https://consumer.huawei.com/en/phones/nexus-6p/specs':
-        #processor_list.append("NA")
     if i=='https://consumer.huawei.com/en/phones/mate8/specs':
-        battery_list.append("NOT AVAILABLE")
-        #print("_________?")
-    
-        
-    
+        battery_list.append("NOT AVAILABLE")    
     kst=[]
     r2=requests.get(i)
     soup2=BeautifulSoup(r2.text,'html.parser')    
@@ -89,7 +73,6 @@ for i in urls:
             for ss in ty:
                 for bn in ss:
                     kst.append(bn)
-        #print(kst)
         yo=''
         no=''
         jo=''
@@ -106,23 +89,17 @@ for i in urls:
                 jo=jo+v.strip()+" "
             if 'mAh' in v or 'mAh*' in v:
                 battery_list.append(v.strip())
-                #print("____")
             if 'mm' in v and 'Depth' in v:
                 thickness_list.append(v.strip())
-                #print("____")
             if 'mm' in v and '*' in v:
-                thickness_list.append(v.strip())
-                #print("____")
-            
+                thickness_list.append(v.strip())            
         
         if len(thickness_list)==xv:
             thickness_list.append('NOT AVAILABLE')
         processor_list.append(no)
-        #print("_________")
         memory_list.append(yo)
         camera_list.append(jo)
-        display_list.append(xc)
-        print("_______?")        
+        display_list.append(xc)       
     xv=xv+1    
         
                 
@@ -145,7 +122,7 @@ for i in range(len(company)):
 
 path='C:\\LavaWebScraper\\BrandWiseFiles\\'
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path,'huawei-'+str(today)+'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path,str(today)+'-huawei'+'.csv'), index=False, encoding='utf-8')
 
             
     

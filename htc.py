@@ -38,20 +38,15 @@ spec_url=[]
 r=requests.get(base_url, headers=user_agent)
 soup=BeautifulSoup(r.text,'html.parser')
 results=soup.find_all('div',attrs={'class':'product-list comparison'})
-#print(len(results))
 for a in range(len(results)):
     sa=results[a].find_all('div',attrs={'class':'item'})
-    #print(len(sa))
     for b in range(len(sa)):
         href.append(sa[b].find('a')['href'])
         model_list.append(sa[b].find('div',attrs={'class':'name'}).text)
-##print(len(href))
-##print(len(model_list))
 for i in range(len(href)):
     href[i]=ur+href[i]
     
 for i in range(len(href)):
-    #print(href[i])
     m1=''
     d1=''
     b1=''
@@ -60,14 +55,11 @@ for i in range(len(href)):
     r=requests.get(href[i])
     soup=BeautifulSoup(r.text,'html.parser')
     results=soup.find_all('div',attrs={'class':'specs-list'})
-    #print(len(results))
     for a in range(len(results)):
         sa=results[a].find_all('ul')
-        #print(len(sa))
         for b in range(len(sa)):
             sb=sa[b].find_all('li',attrs={'class':''})
             sc=sa[b].find_all('li',attrs={'class':'mobile-hide'})
-            #print(sb)
             for c in range(len(sb)):
                 sd=sb[c].find_all('h4')
                 for d in range(len(sd)):
@@ -103,7 +95,6 @@ for i in range(len(href)):
                                     m1 = m1 + str(rom_match.group()) + ' || '
                                 else:
                                     m1 = m1 + ' ROM : Not Available'
-                            #m1+= ts
             for c in range(len(sb)):
                 sd=sb[c].find_all('h4')
                 for d in range(len(sd)):
@@ -141,9 +132,6 @@ for i in range(len(href)):
                 sd = sb[c].find_all('h4')
                 for d in range(len(sd)):
                     if 'camera' in sd[d].text.lower():
-##                        print(i)
-##                        print(model_list[i], end=' ')
-##                        print('GOTCHA')
                         se=sb[c].find_all('span',attrs={'class':'long'})
                         for e in range(len(se)):
                             ts = se[e].text.strip().replace('<br>', ' ').replace('<br/>', ' ').replace('\n', ' ')
@@ -165,9 +153,6 @@ for i in range(len(href)):
                 sg = sc[e].find_all('h4')
                 for l in range(len(sg)):
                     if 'camera' in sg[l].text.lower():
-##                        print(i)
-##                        print(model_list[i], end=' ')
-##                        print('GOTCHA DIFFERENT.')
                         sx = sc[e].find_all('span', attrs={'class':'long'})
                         for k in range(len(sx)):
                             ts = sx[k].text.strip().replace('<br>',' ').replace('<br/>', ' ').replace('\n', ' ')
@@ -211,41 +196,20 @@ for i in range(len(href)):
         camera_list.append('Not Available')
     if len(usp)==i:
         usp.append('Not Available')
-                        
-##                if 'dimension' in sb[c].find('h4').text.lower():
-##                    sd=sb[c].find_all('span',attrs={'class':'short'})
-##                    for d in range(len(sd)):
-##                        thickness_list.append(sd[d].find('p').text)
+
 print(len(thickness_list))
-##for i in thickness_list:
-##    print(i)
-##print('----------------------------------------------------------------------------------------------------------------------------------------')
 print(len(memory_list))
-##for i in memory_list:
-##    print(i)
-##print('----------------------------------------------------------------------------------------------------------------------------------------')
 print(len(display_list))
-##for i in display_list:
-##    print(i)
-##print('----------------------------------------------------------------------------------------------------------------------------------------')
 print(len(battery_list))
-##for i in battery_list:
-##    print(i)
-##print('----------------------------------------------------------------------------------------------------------------------------------------')
 print(len(processor_list))
-##for i in processor_list:
-##    print(i)
-##print('----------------------------------------------------------------------------------------------------------------------------------------')
 print(len(camera_list))
-##for i in camera_list:
-##    print(i)
 print(len(usp))
 extras_links = href
 for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'hTC-'+str(datetime.date.today()) +'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today())+'-htc'+'.csv'), index=False, encoding='utf-8')
    
       
                     

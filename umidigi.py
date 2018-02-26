@@ -187,10 +187,6 @@ for p in urls:
         country.append("china")
         extras_links.append(p)
     jk=jk+1
-#for i in range(len(urls)):
-    
-    
-    
     
 print(len(country))
 print(len(company))
@@ -211,7 +207,7 @@ for i in range(len(country)):
 
 path='C:\\LavaWebScraper\\BrandWiseFiles\\'
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path,'umidigi-'+str(today)+'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path,str(today)+'-umidigi'+'.csv'), index=False, encoding='utf-8')
 
 
     

@@ -77,6 +77,7 @@ l1 = driver.find_elements_by_class_name('product-card-pdp-link')
 i = 1
 while True:
     try:
+        driver.implicitly_wait(10)
         elem_match = driver.find_element_by_xpath('/html/body/div/div[4]/div[3]/div[2]/div/div[1]/div[3]/div[' + str(i) +']/div/div[3]/a')
         HREF.append(elem_match.get_attribute('href'))
         MODEL_LIST.append(elem_match.text)
@@ -113,20 +114,10 @@ for i in range(len(href)):
         st_list_dets.append(dets)
     else:
         s1 = soup1.find('div', attrs={'class':'f_content-table'}).find_all('div', attrs={'class':'f_table-row'})
-        print(soup1.find('div', attrs={'class':'f_content-table'}))
-        print('s1 AS FOLLOWS:')
-        #print(s1)
-        print('\n\n')
         for s in s1:
             s2 = s.find('div', attrs={'class':'f_table-td'}).find_all('li')
-            print('s2 AS FOLLOWS:')
-            #print(s2)
-            print('\n\n')
             for q in s2:
                 s3 = q.find_all('div')
-                print('s3 AS FOLLOWS')
-                #print(s3)
-                print('\n\n')
                 heads.append(s3[0])
                 dets.append(s3[1])
         st_list_heads.append(heads)
@@ -212,79 +203,6 @@ for m in model_list:
 
 extras_links = href
 
-######################### NOTE 8 ####################################
-##
-##href.append('http://www.samsung.com/in/smartphones/galaxy-note8/spec-plus/')
-##model_list.append('Galaxy Note8')
-##extras_links = href
-##heads = []
-##dets = []
-##r = requests.get('http://www.samsung.com/in/smartphones/galaxy-note8/spec-plus/')
-##soup = BeautifulSoup('r.text', 'html.parser')
-##s9 = soup.find_all('div', attrs={'class':'f_content-table'})
-##s10 = s9[1].find_all('li')
-##for s in s10:
-##    s11 = s.find_all('div')
-##    heads.append(s11[0].text.strip())
-##    dets.append(s11[1].text.strip())
-##
-##for i in range(len(heads)):
-##    print(heads[i], end=' : ')
-##    print(dets[i])
-##
-##c1 = ''
-##c2 = ''
-##m1 = ''
-##m2 = ''
-##p1 = ''
-##p2 = ''
-##d1 = ''
-##d2 = ''
-##d3 = ''
-##
-##
-##for i in range(len(heads)):
-##    if 'Standard Battery Capacity' in heads[i]:
-##        battery_list.append(dets[i] + ' mAh')
-##    if 'Main Camera - Resolution' in heads[i]:
-##        c1 = dets[i]
-##    if 'Front Camera - Resolution' in heads[i]:
-##        c2 = dets[i]
-##    if 'RAM_Size' in heads[i] or 'RAM Size' in heads[i]:
-##        m1 = dets[i]
-##    if 'ROM_Size' in heads[i] or 'ROM Size' in heads[i]:
-##        m2 = dets[i]
-##    if 'CPU Speed' in heads[i]:
-##        p1 = dets[i]
-##    if 'CPU Type' in heads[i]:
-##        p2 = dets[i]
-##    if 'Size (Main Display)' in heads[i]:
-##        d1 = dets[i]
-##    if 'Resolution (Main Display)' in heads[i]:
-##        d2 = dets[i]
-##    if 'Technology (Main Display)' in heads[i]:
-##        d3 = dets[i]
-##    if 'Dimension (HxWxD, mm)' in heads[i]:
-##        s = dets[i]
-##        match = re.search(r'x\s\d\.\d', s)
-##        if match:
-##            thickness_list.append(match.group())
-##        else:
-##            thickness_list.append('NA')
-##    
-##if c1!='' or c2!='':
-##    camera_list.append(c1 + ' ' + c2)
-##if m1!='' or m2!='':
-##    memory_list.append(m1 + ' ' +m2)
-##if p1!='' or p2!='':
-##    processor_list.append(p1 + ' ' + p2)
-##if d1!='' or d2!='' or d3!='':
-##    display_list.append(d1 + ' ' + d2 + ' ' + d3)    
-##    
-
-
-
-
 #####################################################################
 
 ############# WRITING TO CSV : DO NOT MAKE ANY CHANGES TO THIS PART EXCEPT WRITING THE FILE NAME. ###################################
@@ -292,25 +210,5 @@ for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'samsung-'+str(datetime.date.today())+'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today())+'-samsung'+'.csv'), index=False, encoding='utf-8')
 #####################################################################################################################################
-             
-                
-
-
-
-
-
-
-
-    
-        
-    
-    
-
-
-
-
-
-
-    

@@ -7,13 +7,7 @@ import re
 import datetime
 import os
 today=datetime.date.today()
-##def find_between( s, first ):
-##    try:
-##        start = s.index( first ) + len( first )
-##        end = s.index(' ')
-##        return s[start:end]
-##    except ValueError:
-##        return ""
+
 urls=[]
 urls1=[]
 urls2=[]
@@ -45,7 +39,6 @@ for ti in models:
     else:
         model1.append(ti)
 
-#print(model1)
 for s in links:
     tt=s.find_all('a')
     
@@ -54,15 +47,11 @@ for s in links:
 for i in urls1:
     if 'https' in i and i not in urls:
         urls.append(i)
-#print(urls)
-print("_____________________________________________________________________")
-#print(len(urls))
+
 xv=0
 for x in urls:
     r1=requests.get(x)
     if r1:
-        
-        #print(x)
         country.append("CHINA")
         company.append("GIONEE")
         specs.append("NOT AVAILABLE")
@@ -70,19 +59,8 @@ for x in urls:
         li=soup1.find_all('div',attrs={'class':'accordion-section'})
         md=soup1.find_all('div',attrs={'class':'specs'})
         ban=soup1.find_all('div',attrs={'class':'banner'})
-##        if ban:
-##            rt=''
-##            for lp in ban:
-##                print(lp.text)
-##                rt=rt+lp.text.strip()+"||"
-##            #specs.append(rt)
-##        else:
-##            specs.append("NA")
-##        
-        if li:
-            
-                
-                    
+       
+        if li: 
             heads=[]
             dets=[]
             print(x)
@@ -98,14 +76,11 @@ for x in urls:
             extras_links.append(x)
             z = 0
             for p in li:
-                #print('table No.: %d' %z)
                 th=p.find_all('tr')
                 w=0
                 for b in th:
                     try:
-                        #print('<tr> No.: %d' %w)
                         ii=b.find_all('td')
-                        #print(ii)
                         heads.append(ii[0].text.strip())
                         dets.append(ii[1].text.strip())
                     except:
@@ -119,10 +94,8 @@ for x in urls:
                 if i=='https://gionee.co.in/smartphones/p-series/gionee-p5l':
                     thickness_list.append("NOT AVAILABLE")
                 if 'RAM' in heads[i] or 'ROM' in heads[i]:
-                    #print(dets[i])
                     pt=pt+dets[i].strip()+" "
                 if "Display" in heads[i] or 'Type' in heads[i] or'DISPLAY' in heads[i]:
-                    #print(dets[i])
                     match=re.search(r'\d*\.\d*cm',dets[i])
                     if match:
                         y=str(match.group())
@@ -152,15 +125,8 @@ for x in urls:
                 
                 if 'Primary' in heads[i]:
                     camera_list.append(dets[i])
-                    #print("____")
-                    
-
-           
             
-            memory_list.append("RAM/ROM: "+pt)
-            #print("_______")
-            
-                
+            memory_list.append("RAM/ROM: "+pt)                
             if len(thickness_list)==xv:
                 thickness_list.append('NOT AVAILABLE')
                 print("______________")
@@ -178,7 +144,6 @@ for x in urls:
                         data.append(vv)
             yu=''
             cb=''
-            #print(data)
             for i in data:
                 if 'Dimensions' in i:
                     
@@ -214,9 +179,7 @@ for x in urls:
         
         processor_list.append("NOT AVAILABLE")
         extras_links.append(x)
-                            
-##for i in urls:
-##    print(i)
+
 mods=[]
 mods1=[]
 for i in model1:
@@ -229,10 +192,7 @@ for i in model1:
     else:
         mods.append(i)
 mods.append("f103")
-##for n in display_list:
-##    print(n)
-##    if n.startswith(" "):
-##       n=n.replace(" ","NA")
+
 print(display_list)
 print(len(country))
 print(len(company))
@@ -252,7 +212,7 @@ for i in range(len(company)):
 
 path='C:\\LavaWebScraper\\BrandWiseFiles\\'
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path,'gionee-'+str(today)+'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path,str(today)+'-gionee'+'.csv'), index=False, encoding='utf-8')
 
 
 

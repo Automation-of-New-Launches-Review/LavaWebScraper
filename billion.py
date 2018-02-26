@@ -3,13 +3,11 @@ import re
 from bs4 import BeautifulSoup
 import pandas as pd
 import sys
-##from PyQt4.QtGui import QApplication
-##from PyQt4.QtCore import QUrl
-##from PyQt4.QtWebKit import QWebPage
 import bs4 as bs
 import urllib.request
 import datetime
 import os
+
 today=datetime.date.today()
 country=[]
 company=[]
@@ -54,7 +52,6 @@ for b in urls:
         for v in s2:
             kt=kt+(v.text)
         dets.append(kt)
-    #print(heads)
     for i in range(len(heads)):                                                                           
         if 'Battery' in heads[i]:
             battery_list.append(dets[i].strip('\r\n\t').replace('\n',''))
@@ -113,5 +110,5 @@ for i in range(len(company)):
 
 path='C:\\LavaWebScraper\\BrandWiseFiles\\'
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path,'billion-'+str(today)+'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path,str(today)+'-billion'+'.csv'), index=False, encoding='utf-8')
 

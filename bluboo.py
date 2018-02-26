@@ -28,7 +28,6 @@ class Client(QWebPage):
         self.app.quit()
         
 base_url = 'http://bluboohk.com/products/'
-#ur='https://www.nokia.com/en_int/phones/'
 country = 'USA'
 company = 'BLUBOO'
 model_list = []
@@ -88,8 +87,6 @@ for i in range(len(href)):
 for i in range(len(href)):
     shref[i]=href[i]+shref[i]
 
-##print(len(shref))
-##print(shref)
 for i in range(len(shref)):
     cc = 'REAR / FRONT : '
     heads=[]
@@ -189,7 +186,7 @@ for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'bluboo-'+str(datetime.date.today()) +'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today())+ '-bluboo' +'.csv'), index=False, encoding='utf-8')
 #####################################################################################################################################            
 
 

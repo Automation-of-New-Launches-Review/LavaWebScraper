@@ -152,28 +152,7 @@ for i in range(len(st_list_heads)):
     if len(camera_list)==i:
         camera_list.append('Not Available')
     if len(usp)==i:
-        usp.append('Not Available')         
-
-
-##    if 'Size' not in st_list_heads[i] and 'size' not in st_list_heads[i][j]:
-##        thickness_list.append('NA')
-##        
-##        
-##    if 'CPU' not in st_list_heads[i]:
-##        processor_list.append('NA')
-##        
-##    if 'Internal memory' not in st_list_heads[i] and 'internal memory' not in st_list_heads[i] and 'Internal Memory' not in st_list_heads[i] and 'RAM' not in st_list_heads[i]:
-##        memory_list.append('NA')
-##        
-##    if 'Battery type' not in st_list_heads[i] and 'battery type' not in st_list_heads[i]:
-##        battery_list.append('NA')
-##        
-##    if 'Size and type' not in st_list_heads[i] and 'size and type' not in st_list_heads[i]:
-##        display_list.append('NA')
-##        
-##    if 'Primary Camera' not in st_list_heads[i] and 'Primary camera' not in st_list_heads[i] and 'primary camera' not in st_list_heads[i] and 'Front-facing camera' not in st_list_heads[i] and 'front-facing camera' not in st_list_heads[i]:
-##        camera_list.append('NA')
-#print(len(model_list))
+        usp.append('Not Available')
 print(len(usp))
 print(len(thickness_list))
 print(len(processor_list))
@@ -187,7 +166,7 @@ for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'nokia-'+str(datetime.date.today()) +'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today())+ '-nokia' +'.csv'), index=False, encoding='utf-8')
 
    
                         
