@@ -80,7 +80,7 @@ for i in range(len(hotprolist)):
     match = re.findall(r'<li>.+?</li>', st)
     for k in range(len(match)):
         ts = ts + match[k].strip('<li>').strip('</li>') + ' || '
-    usp.append(ts)
+    usp.append(ts.replace('°','').replace(u'\u02da',''))
 for j in range(len(hotprolist2)):
     ts = ""
     model_list.append(hotprolist2[j]["PDMarketName"])
@@ -91,7 +91,7 @@ for j in range(len(hotprolist2)):
     for k in range(len(match)):
         ts = ts + match[k].strip().strip('<li>').strip('</li>') + ' || '
     if not ts.startswith(''):
-        usp.append(ts)
+        usp.append(ts.replace('°','').replace(u'\u02da',''))
     else:
         usp.append('Not Available')
 
@@ -122,11 +122,11 @@ for i in range(len(href)):
         ts1 = s.find('name').text.replace('<name>', '').replace('</name>', '').replace('<br>', ' | ').replace('<br/>', ' | ').replace('<strong>', ' ').replace('</strong>', ' ')
         ts2 = s.find('spec').text.replace('<spec>', '').replace('</spec>', '').replace('<br>', ' | ').replace('<br/>', ' | ').replace('<strong>', ' ').replace('</strong>', ' ')
         if 'Dimensions' in ts1:
-            thickness_list.append(ts2)
+            thickness_list.append(ts2.replace('°','').replace(u'\u02da',''))
         if 'Processor' in ts1:
-            processor_list.append(ts2)
+            processor_list.append(ts2.replace('°','').replace(u'\u02da',''))
         if 'Display' in ts1:
-            display_list.append(ts2)
+            display_list.append(ts2.replace('°','').replace(u'\u02da',''))
         if 'Memory' in ts1 or 'Capacity' in ts1:
             mm = mm + ts2 + ' || '
         if 'Battery' in ts1:
@@ -135,13 +135,13 @@ for i in range(len(href)):
                 stt = str(match.group())
             else:
                 stt = 'Not Available'
-            battery_list.append(stt)
+            battery_list.append(stt.replace('°','').replace(u'\u02da',''))
         if 'Camera' in ts1:
             cc = cc + ts2 + ' || '
     if mm!='RAM / ROM : ':
-        memory_list.append(mm)
+        memory_list.append(mm.replace('°','').replace(u'\u02da',''))
     if cc!='Rear / Front : ':
-        camera_list.append(cc)
+        camera_list.append(cc.replace('°','').replace(u'\u02da',''))
     if len(thickness_list)==i:
         thickness_list.append('Not Available')
     if len(processor_list)==i:
@@ -176,4 +176,4 @@ for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'asus-' + str(datetime.date.today()) + '.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today()) + '-asus' + '.csv'), index=False, encoding='utf-8')

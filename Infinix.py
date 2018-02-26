@@ -17,7 +17,6 @@ path_of_brandwise = 'C:\\LavaWebScraper\\BrandWiseFiles\\'
 ###############################################################
 
 base_url = 'http://www.infinixmobility.com/'
-#ur='https://www.nokia.com/en_int/phones/'
 country = 'HONG KONG'
 company = 'INFINIX'
 model_list = []
@@ -47,18 +46,11 @@ for i in range(len(results)):
         for b in range(len(sb)):
             model.append(sb[b].text.strip().replace('/',' ').replace('\xa0',' '))
             herf.append(sb[b].find('a')['href'])
-##print(model)
-##print(len(model))
-##print(herf)
-##print(len(herf))
 for i in range(len(herf)):
     if 'smartphone' in herf[i]:
         href.append(herf[i])
         model_list.append(model[i])
-##print(model_list)
-##print(len(model_list))
-##print(href)
-##print(len(href))
+
 for i in range(len(href)):
     href[i]=base_url+href[i]
     r=requests.get(href[i])
@@ -75,14 +67,11 @@ for i in range(len(href)):
 for i in range(len(hr)):
     u=''
     hr[i]=base_url+hr[i]
-    #print(hr[i])
     r=requests.get(hr[i])
     soup=BeautifulSoup(r.text,'html.parser')
     results=soup.find_all('div',attrs={'class':'main-data-list'})
-    #print(len(results))
     for a in range(len(results)):
         sa=results[a].find_all('ul')
-        #print(len(sa))
         for b in range(len(sa)):
             sb=sa[b].find_all('li')
             for c in range(len(sb)):
@@ -99,7 +88,6 @@ for i in range(len(hr)):
         sa=results[a].find_all('div',attrs={'class':'parameter-box'})
         for b in range(len(sa)):
             sb=sa[b].find_all('div',attrs={'class':'col-lg-3 col-md-3 col-sm-3 columns'})
-            #print(len(sb))
             for c in range(len(sb)):
                 sc=sb[c].find_all('div',attrs={'class':'specs-label'})
                 for d in range(len(sc)):
@@ -171,39 +159,13 @@ print(len(battery_list))
 print(len(thickness_list))
 print(len(processor_list))
 print(len(extras_links))
-##for i in model_list:
-##    print(i)
-##print('-----------------------------------------------------------------------------------------------------------------------------------------------')
-##for i in usp:
-##    print(i)
-##print('-----------------------------------------------------------------------------------------------------------------------------------------------')
-##for i in display_list:
-##    print(i)
-##print('-----------------------------------------------------------------------------------------------------------------------------------------------')
-##for i in camera_list:
-##    print(i)
-##print('-----------------------------------------------------------------------------------------------------------------------------------------------')
-##for i in memory_list:
-##    print(i)
-##print('-----------------------------------------------------------------------------------------------------------------------------------------------')
-##for i in battery_list:
-##    print(i)
-##print('-----------------------------------------------------------------------------------------------------------------------------------------------')
-##for i in thickness_list:
-##    print(i)
-##print('-----------------------------------------------------------------------------------------------------------------------------------------------')
-##for i in processor_list:
-##    print(i)
-##print('-----------------------------------------------------------------------------------------------------------------------------------------------')
-##for i in extras_links:
-##    print(i)
-##print('-----------------------------------------------------------------------------------------------------------------------------------------------')
+
 
 for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'infinix-'+str(datetime.date.today()) +'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today())+ '-infinix' +'.csv'), index=False, encoding='utf-8')
    
       
 

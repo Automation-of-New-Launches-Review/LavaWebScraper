@@ -46,12 +46,9 @@ USP=[]
 r=requests.get(base_url)
 soup=BeautifulSoup(r.text,'html.parser')
 results=soup.find_all('div',attrs={'class':'plane'})
-#print(len(results))
 for i in range(len(results)):
     sa=results[i].find_all('li')
     for a in range(len(sa)):
-##        href.append(sa[a].find('a')['href'])
-##        model_list.append(sa[a].find('h3').text.strip())
         href.append(sa[a].find('a')['href'])
         model_list.append(sa[a].find('h3').text.strip())
 for i in range(len(href)):
@@ -88,9 +85,7 @@ for i in range(len(hr)):
         usp.append(u)
     else:
         usp.append('Not Available')
-#print(len(usp))
-##for i in usp:
-##    print(i)
+
 for i in range(len(hr)):
     c1=''
     d1=''
@@ -303,11 +298,9 @@ print(len(extras_links))
 for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
-##for r in records:
-##    print(r)
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'doogee-'+str(datetime.date.today()) +'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today()) +'-doogee'+'.csv'), index=False, encoding='utf-8')
    
       
 

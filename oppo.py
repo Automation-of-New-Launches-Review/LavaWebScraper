@@ -223,6 +223,6 @@ for i in range(len(country)):
 
 path='C:\\LavaWebScraper\\BrandWiseFiles\\'
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path,'oppo-'+str(today)+'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path,str(today)+'-oppo'+'.csv'), index=False, encoding='utf-8')
 
 

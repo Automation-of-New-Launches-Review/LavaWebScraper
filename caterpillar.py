@@ -38,12 +38,10 @@ spec_url=[]
 r=requests.get(base_url)
 soup=BeautifulSoup(r.text,'html.parser')
 results=soup.find_all('ol',attrs={'class':'products list items product-items'})
-#print(len(results))
 for i in range(len(results)):
     sa=results[i].find_all('li',attrs={'class':'item product product-item'})
     for a in range(len(sa)):
         sb=sa[a].find_all('h3',attrs={'class':'product-item-name'})
-        #print(len(sb))
         for b in range(len(sb)):
             href.append(sb[b].find('a')['href'])
             sc=sb[b].find('a').contents[0].strip('\n').strip().replace('®',' ')
@@ -59,15 +57,13 @@ for i in range(len(href)):
         for b in range(len(sa)):
             u=u+sa[b].text.replace('&nbsp',' ')+' || '
     usp.append(u)
-##for i in usp:
-##    print(i)
+
 for i in range(len(href)):
     c1=''
     m1=''
     r=requests.get(href[i])
     soup=BeautifulSoup(r.text,'html.parser')
     results=soup.find_all('div',attrs={'class':'product-tech-specs'})
-    #print(len(results))
     for a in range(len(results)):
         sa=results[a].find_all('div',attrs={'class':'spectable-wrap'})
         for b in range(len(sa)):
@@ -156,7 +152,7 @@ for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'caterpillar-'+str(datetime.date.today()) +'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today()) + '-caterpillar' +'.csv'), index=False, encoding='utf-8')
    
       
                     

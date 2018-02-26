@@ -38,53 +38,35 @@ spec_url=[]
 r=requests.get(base_url)
 soup=BeautifulSoup(r.text,'html.parser')
 results=soup.find_all('div',attrs={'class':'col-sm-3 col-md-3 img-range-zoom'})
-#print(len(results))
 for i in range(len(results)):
     href.append(results[i].find('a')['href'])
     sa=results[i].find_all('div')
     for a in range(len(sa)):
         model_list.append(sa[a].text)
-##print(model_list)
-##print(len(model_list))
-##print(href)
-##print(len(href))
+
 for i in range(len(href)):
-    #print(i)
     heads=[]
     dets=[]
     r=requests.get(href[i])
     soup=BeautifulSoup(r.text,'html.parser')
     results=soup.find_all('div',attrs={'class':'panel panel-danger'})
-    #print(len(results))
     for a in range(len(results)-1):
         sa=results[a].find_all('li')
         for b in range(len(sa)):
             s=''
             try:
                 heads.append(sa[b].contents[0].text)
-                #print(sa[b].contents[0])
                 for c in range(1,len(sa[b].contents)):
                     try:
                         s+=sa[b].contents[c].strip(':').strip()
-                        #print(sa[b].contents[1])
                     except:
                        print('DETS NOT FOUND FOR THIS ELEMENT.')
-##                print(s)
                 dets.append(s)
             except:
                 pass
     st_list_heads.append(heads)
     st_list_dets.append(dets)
-#print(st_list_heads)
 i=1
-##for a in st_list_heads:
-##    print(i)
-##    print(a)
-##    i+=1
-##print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
-##print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
-##print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
-##print(st_list_dets)
 for i in range(len(st_list_heads)):
     m1 = ''
     m2 = ''
@@ -111,7 +93,6 @@ for i in range(len(st_list_heads)):
             d2 ='Type- '+ st_list_dets[i][j]+' || '
             
         if 'back camera' in st_list_heads[i][j].lower() or 'front camera' in st_list_heads[i][j].lower() or 'back photos' in st_list_heads[i][j].lower() or 'back pictures' in st_list_heads[i][j].lower() or 'front photos' in st_list_heads[i][j].lower() or 'front pictures' in st_list_heads[i][j].lower():
-            #camera_list.append('Back/Front- '+st_list_dets[i][j])
             cc = cc + st_list_dets[i][j] + ' || '
         
     if m1!='' or m2!='':
@@ -150,5 +131,5 @@ for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'archos-'+str(datetime.date.today()) +'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today()) + '-archos' +'.csv'), index=False, encoding='utf-8')
 

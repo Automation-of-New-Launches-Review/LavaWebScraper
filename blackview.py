@@ -38,30 +38,18 @@ spec_url=[]
 r=requests.get(base_url)
 soup=BeautifulSoup(r.text,'html.parser')
 results=soup.find_all('div',attrs={'class':'productslist'})
-#print(len(results))
 for i in range(len(results)):
     sa=results[i].find_all('ul')
-    #print(len(sa))
     for b in range(len(sa)):
         sb=sa[b].find_all('li')
-        #print(len(sb))
         for c in range(len(sb)):
             sc=sb[c].find_all('span',attrs={'class':'border'})
-            #print(len(sc))
             for d in range(len(sc)):
                 href.append(sc[d].find('a')['href'])
                 model_list.append(sc[d].find('a')['title'].replace('（','(').replace('）',')'))
-#print('-------------------------------------------------------------------------------------------------------------------------------------------------------------')
-#print(len(href))
 for i in range(len(href)):
     if ur not in href[i]:
         href[i]=ur+href[i]
-    #print(model_list[i])
-    #print(href[i])        
-    #print('-------------------------------------------------------------------------------------------------------------------------------------------------------------')
-##print(len(href))
-##for i in model_list:
-##    print(i)
 for i in range(len(href)):
     r=requests.get(href[i])
     soup=BeautifulSoup(r.text,'html.parser')
@@ -122,28 +110,21 @@ for i in range(len(href)):
     if len(usp)==i:
         usp.append('Not Available')
         
-#print(thickness_list)                                                          
+                                                         
 print(len(thickness_list))
-#print(processor_list)
 print(len(processor_list))
 print(len(memory_list))
-#print(memory_list)
 print(len(display_list))
-#print(display_list)
 print(len(camera_list))
-#print(camera_list)
-
 print(len(battery_list))
-#print(battery_list)
 print(len(usp))
-#print(usp)
 
 extras_links = href
 for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'blackview-'+str(datetime.date.today()) +'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today()) +'-blackview'+'.csv'), index=False, encoding='utf-8')
    
       
                     

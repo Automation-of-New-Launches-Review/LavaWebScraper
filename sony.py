@@ -153,23 +153,12 @@ for k in aa:
                 b=" "
             d=d+"  FRONT CAMERA"+b
     camera_list.append(d)
-    
-                
-                    
-                    
-            
-                
-                
-
-            
 for x in aa:
     extras_links.append(x)
     country.append('JAPAN')
 print(len(country))
 print(len(company))
-print(model)
 print(len(specs))
-#print(display_list)
 print(len(camera_list))
 print(len(memory_list))
 print(len(battery_list))
@@ -185,6 +174,6 @@ for i in range(len(aa)):
 
 path='C:\\LavaWebScraper\\BrandWiseFiles\\'
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path,'sony-'+str(today)+'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path,str(today)+'-sony'+'.csv'), index=False, encoding='utf-8')
 
 

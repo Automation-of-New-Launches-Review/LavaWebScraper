@@ -11,7 +11,7 @@ import urllib.request
 import os
 import datetime
 
-
+print('START.')
 ###############################################################
 path_of_brandwise = 'C:\\LavaWebScraper\\BrandWiseFiles\\'
 ###############################################################
@@ -151,24 +151,7 @@ for i in range(len(st_list_heads)):
         camera_list.append('Not Available')
     if len(usp)==i:
         usp.append('Not Available')         
-##    if 'Dimension' not in st_list_heads[i] and 'dimension' not in st_list_heads[i][j] and 'Dimensions' not in st_list_heads[i][j] and 'dimensions' not in st_list_heads[i][j]:
-##        thickness_list.append('NA')
-##        
-##        
-##    if 'Platform' not in st_list_heads[i] and 'platform' not in st_list_heads[i][j]:
-##        processor_list.append('NA')
-##        
-##    if 'Built-in Memory' not in st_list_heads[i]:
-##        memory_list.append('NA')
-##        
-##    if 'Battery' not in st_list_heads[i] and 'battery' not in st_list_heads[i]:
-##        battery_list.append('NA')
-##        
-##    if 'Physical Size' not in st_list_heads[i]:
-##        display_list.append('NA')
-##        
-##    if 'Cameras' not in st_list_heads[i] and 'cameras' not in st_list_heads[i] and 'Camera' not in st_list_heads[i] and 'camera' not in st_list_heads[i]:
-##        camera_list.append('NA')
+
 print(len(model_list))
 print(len(usp))
 print(len(thickness_list))
@@ -184,5 +167,5 @@ for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'agm-'+str(datetime.date.today()) +'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today())+ '-agm' +'.csv'), index=False, encoding='utf-8')
 

@@ -65,11 +65,8 @@ for i in range(len(href)):
 x = 0 # TOTAL NO. OF MODELS.
 href = []
 for i in range(len(hr_specs)):
-    #tcam = ''
     c = 0
     rowheader_list = []
-    #print(href[i])
-    #print(model_list[i])
     r2 = requests.get(hr_specs[i])
     soup2 = BeautifulSoup(r2.text, 'html.parser')
     s9 = soup2.find_all('div', attrs={'role':'columnheader'})
@@ -131,10 +128,7 @@ for i in range(len(hr_specs)):
         thickness_list.append('Not Available')
     if len(camera_list)==i:
         camera_list.append('Not Available')
-    #if len(battery_list)==i:
-        #battery_list.append('Not Available')
-    #if len(usp)==i:
-        #usp.append('Not Available')
+
 
 for i in range(len(model_list)):
     battery_list.append('Not Available')
@@ -168,5 +162,5 @@ for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'apple-' + str(datetime.date.today()) + '.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today()) + '-apple' + '.csv'), index=False, encoding='utf-8-sig')
 #####################################################################################################################################

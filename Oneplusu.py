@@ -191,7 +191,7 @@ for i in range(len(company)):
 
 path='C:\\LavaWebScraper\\BrandWiseFiles\\'
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path,'Oneplus-'+str(today)+'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path,str(today)+'-oneplus'+'.csv'), index=False, encoding='utf-8')
 
 
 

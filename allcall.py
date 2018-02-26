@@ -40,10 +40,6 @@ results=soup.find_all('li',attrs={'class':'col-xs-6 col-sm-3 col-md-3 col-lg-3 p
 for i in range(len(results)):
     model_list.append(results[i].find('h4').text)
     href.append(results[i].find('a')['href'])
-#print(href)
-##print(len(href))
-##print(model_list)
-##print(len(model_list))
 HREF=[]
 for i in range(len(href)):
     href[i]=ur + href[i]
@@ -67,11 +63,8 @@ for i in range(len(hr)):
     r=requests.get(hr[i])
     soup=BeautifulSoup(r.text,'html.parser')
     results=soup.find_all('div',attrs={'class':'container overflow-hidden padding-tottom-5'})
-    #print(len(results))
     for a in range(len(results)):
         sa=results[a].find_all('ul',attrs={'class':'col-xs-12 col-sm-8 col-md-8 col-lg-8 padding-top-5 padding-margin-def top-info'})
-##        print(len(sa))
-##        print('                                                    ')
         for b in range(len(sa)):
             sb=sa[b].find_all('li')
             for c in range(len(sb)):
@@ -92,12 +85,6 @@ for i in range(len(hr)):
                     dets.append(sb[c].text.strip('\n\t').replace('\xa0',' ').replace('\n',' '))
     st_list_heads.append(heads)
     st_list_dets.append(dets)
-##print(st_list_heads)
-##print(len(st_list_heads))
-##print(len(st_list_dets))      
-##print(st_list_dets)
-##print(usp)
-##print(len(usp))
 for i in range(len(st_list_heads)):
     q1 = ''
     q2 = ''
@@ -120,10 +107,6 @@ for i in range(len(st_list_heads)):
             r1 ='Size:- ' +st_list_dets[i][j]+' || '
         if 'type' in st_list_heads[i][j].lower():
             r2 ='Type:- '+ st_list_dets[i][j]+' || '
-        #if 'Rear camera' in st_list_heads[i][j] or 'Rear Camera' in st_list_heads[i][j] or 'rear camera' in st_list_heads[i][j] or 'Rear  Camera' in st_list_heads[i][j]:
-            #s1='Rear camera:- '+st_list_dets[i][j]+' || '
-        #if 'Front camera' in st_list_heads[i][j] or 'Front Camera' in st_list_heads[i][j] or 'front camera' in st_list_heads[i][j] or 'Front  Camera' in st_list_heads[i][j]:
-            #s2='Front camera:- '+st_list_dets[i][j]+' || '
         if 'rear' in st_list_heads[i][j].lower() and 'camera' in st_list_heads[i][j].lower():
             s1='Rear camera:- '+st_list_dets[i][j]+' || '
         if 'front' in st_list_heads[i][j].lower() and 'camera' in st_list_heads[i][j].lower():
@@ -136,21 +119,6 @@ for i in range(len(st_list_heads)):
         display_list.append(r1+' '+r2)
     if s1!='' or s2!='':
         camera_list.append(s1 +' '+ s2)
-    #if 'Dimensions' not in st_list_heads[i]:
-        #thickness_list.append('NA')
-    #if 'CPU' not in st_list_heads[i]:
-        #processor_list.append('NA')
-##    if 'Memory' not in st_list_heads[i] and 'memory' not in st_list_heads[i]:
-##        memory_list.append('NA')
-##    if 'ROM' not in st_list_heads[i] and 'RAM' not in st_list_heads[i]:
-##        memory_list.append('NA')
-    #if 'Battery' not in st_list_heads[i] and 'battery' not in st_list_heads[i]:
-        #battery_list.append('NA')
-    #if 'Screen Size' not in st_list_heads[i] and 'Type' not in st_list_heads[i] and 'type' not in st_list_heads[i] and 'Screen size' not in st_list_heads[i] and 'screen size' not in st_list_heads[i] and 'Display Size' not in st_list_heads[i] and 'Display size' not in st_list_heads[i] and 'display size' not in st_list_heads[i]:
-        #display_list.append('NA')
-    #if 'Rear camera' not in st_list_heads[i] and 'Front camera' not in st_list_heads[i] and 'Rear Camera' not in st_list_heads[i] and 'Front Camera' not in st_list_heads[i]:
-        #camera_list.append('NA')
-
     if len(battery_list)==i:
         battery_list.append('Not Available')
     if len(camera_list)==i:
@@ -173,10 +141,9 @@ print(len(memory_list))
 print(len(battery_list))
 print(len(display_list))
 print(len(camera_list))
-#print(usp)
 extras_links = hr
 for i in range(len(model_list)):
     records.append((country, company, model_list[i], usp[i], display_list[i], camera_list[i], memory_list[i], battery_list[i], thickness_list[i], processor_list[i], extras_links[i]))
 
 df = pd.DataFrame(records, columns = ['COUNTRY', 'COMPANY', 'MODEL', 'USP', 'DISPLAY', 'CAMERA', 'MEMORY', 'BATTERY', 'THICKNESS', 'PROCESSOR', 'EXTRAS/ LINKS'])
-df.to_csv(os.path.join(path_of_brandwise, 'allcall-'+str(datetime.date.today()) +'.csv'), index=False, encoding='utf-8')
+df.to_csv(os.path.join(path_of_brandwise, str(datetime.date.today())+ '-allcall' +'.csv'), index=False, encoding='utf-8')
